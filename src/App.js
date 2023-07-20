@@ -103,16 +103,17 @@ function handleAdd(){
         <div className='Clock'>
             <p>{minute < 10 ? "0" + minute : minute} :  {second < 10 ? "0" + second : second}</p>
         </div>
-        <div>{isActive? <button onClick={Stop}>Stop</button> : <button onClick={handleStart}>Start</button>}
+        <div className='button'>{isActive? <button onClick={Stop}>Stop</button> : <button onClick={handleStart}>Start</button>}
         </div>
       </div>
-      <div>
+      <div className='Form'>
+          <h2>Tasks</h2>
           <input 
           type="text" 
           value={newTask} 
           onChange={(e) => setNewItem(e.target.value)}/>
           <button onClick={handleAdd}>
-            Add
+            Add Task
           </button>
         </div>
         <div className='List'>
