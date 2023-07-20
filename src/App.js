@@ -11,6 +11,8 @@ const [timerOn, setTimerOn] = useState(true);
 const [isActive, setIsActive] = useState(false);
 const [active, setActive] = useState(true);
 const [bgColor, setBgColor] = useState(red);
+const [newTask, setNewItem] = useState("")
+const [tasks, setTasks] = useState([]);
 const audio = new Audio(BreakSound);
 useEffect(()=>{
   let internal = null;
@@ -64,6 +66,24 @@ const handleBreak=()=>{
   Stop();
   setActive(false);
 }
+
+function handleAdd(){
+  const task = {
+    id: Math.random() * 1234, 
+    text: newTask
+  };
+  setTasks(oldTask => [...oldTask, task]);
+  setNewItem("");
+}
+ const itemList = tasks.map(task=>{
+   return (
+    <div className='List'>
+      <li key={task.id}>
+        {task.text}
+      </li>
+    </div>
+   )
+ })
   return (
     <div className="App" style={{background: bgColor, transition:'background 0.5s ease'}}>
       <h1>Pomodoro Clock</h1>
@@ -86,6 +106,18 @@ const handleBreak=()=>{
         <div>{isActive? <button onClick={Stop}>Stop</button> : <button onClick={handleStart}>Start</button>}
         </div>
       </div>
+      <div>
+          <input 
+          type="text" 
+          value={newTask} 
+          onChange={(e) => setNewItem(e.target.value)}/>
+          <button onClick={handleAdd}>
+            Add
+          </button>
+        </div>
+        <div className='List'>
+          {itemList}
+        </div> 
     </div>
   );
 }
